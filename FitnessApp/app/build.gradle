@@ -1,0 +1,110 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "com.easyfitness"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 31
+        versionName "0.17.3"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        if (rootProject.file('release.properties').exists()) {
+            def props = new Properties()
+            props.load(new FileInputStream(rootProject.file('release.properties')))
+            release {
+                storeFile file(props.keyStore)
+                storePassword props.keyStorePassword
+                keyAlias props.keyAlias
+                keyPassword props.keyAliasPassword
+            }
+        }
+        if (rootProject.file('debug.properties').exists()) {
+            def props2 = new Properties()
+            props2.load(new FileInputStream(rootProject.file('debug.properties')))
+            debug {
+                storeFile file(props2.keyStore)
+                storePassword props2.keyStorePassword
+                keyAlias props2.keyAlias
+                keyPassword props2.keyAliasPassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
+            if (rootProject.file('release.properties').exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+        debug {
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
+            if (rootProject.file('debug.properties').exists()) {
+                signingConfig signingConfigs.debug
+            }
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        encoding = 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
+}
+
+dependencies {
+    implementation files('libs/javacsv-2.1.jar')
+    //implementation 'net.sourceforge.javacsv:javacsv:2.1'
+
+// Support
+    implementation 'androidx.annotation:annotation:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
+    implementation 'androidx.core:core:1.0.1'
+    implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation 'androidx.fragment:fragment:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+// Firebase
+    //implementation 'com.google.firebase:firebase-core:16.0.8'
+    //implementation 'com.google.firebase:firebase-crash:16.2.1'
+
+// Other
+    implementation 'de.psdev.licensesdialog:licensesdialog:1.8.3' //2.0.0
+    implementation 'com.github.hannesa2:MPAndroidChart:3.0.7'
+    //implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.astuetz:pagerslidingtabstrip:1.0.1' //DEPRECATED
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.heinrichreimersoftware:material-intro:1.6' //1.6.2
+    implementation 'com.mikhaellopez:circularimageview:3.2.0' //3.2.0
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+    implementation 'com.github.onurkagan:ktoast:1.0.3'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+    implementation 'com.github.ivbaranov:materialfavoritebutton:0.1.5'
+    //implementation('com.crashlytics.sdk.android:crashlytics:2.9.9@aar', {
+    //    transitive = true
+    //})
+}

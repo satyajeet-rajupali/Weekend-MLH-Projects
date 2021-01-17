@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:padding="6dip">
+
+    <TextView
+        android:id="@+id/LIST_BODYPART_ID"
+        android:layout_width="fill_parent"
+        android:layout_height="26dip"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/LIST_BODYPART_LOGO"
+        android:layout_width="45dp"
+        android:layout_height="fill_parent"
+        android:layout_marginEnd="6dip"
+        android:background="@color/background_even"
+        android:scaleType="fitCenter"
+        android:src="@drawable/silhouette" />
+
+    <TextView
+        android:id="@+id/LIST_BODYPART"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:gravity="center_vertical"
+        android:text="Example Body Part"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:layout_weight="90"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lastRecordLabel"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/LIST_BODYPART_LASTRECORD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="50 cm"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>
